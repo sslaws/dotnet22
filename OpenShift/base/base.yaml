@@ -2,7 +2,7 @@ apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: dotnet22-base-image
+  name: dotnet22-base
 objects:
 - apiVersion: v1
   kind: ImageStream
