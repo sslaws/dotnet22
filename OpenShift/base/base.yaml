@@ -2,7 +2,7 @@ apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: dotnetcore2.2
+  name: dotnet22-base-image
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -57,7 +57,7 @@ parameters:
   displayName: Name
   name: NAME
   required: true
-  value: dotnet22-base
+  value: dotnet-base-image
 - description: A name suffix used for all objects
   displayName: Suffix
   name: SUFFIX
@@ -67,7 +67,7 @@ parameters:
   displayName: version
   name: VERSION
   required: true
-  value: v2.2
+  value: v2.2.0
 - name: SOURCE_REPOSITORY_URL
   required: true
   value: https://github.com/sslaws/dotnet22.git
