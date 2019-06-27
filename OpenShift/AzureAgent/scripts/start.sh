@@ -75,6 +75,8 @@ if [ -z "${AZ_DEVOPS_ORG_URL}" ] || [ -z "${AZ_DEVOPS_TOKEN}" ]; then
   usage
 fi
 
+./entrypoint.sh
+
 agent/config.sh --unattended \
     --agent "${AZ_DEVOPS_AGENT_NAME:-$HOSTNAME}" \
     --url "${AZ_DEVOPS_ORG_URL}" \
