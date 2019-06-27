@@ -79,4 +79,4 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
 USER 1001
 WORKDIR ${APP_ROOT} 
 
-ENTRYPOINT [ "/opt/entrypointi.sh" ]
+ENTRYPOINT [ "/opt/entrypoint.sh" ]
