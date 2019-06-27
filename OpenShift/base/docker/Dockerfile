@@ -15,7 +15,13 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,azure,devops,agent-v${DEVOPS_AGENT_VERSION},.net-v${NODE_MAJOR_VERSION},nodejs-v${NODE_VERSION}" \
       release="1"
 
-ENV PATH=$HOME/.local/bin/:$PATH \
+# Define and Create work folder
+ENV APP_ROOT=/opt/app
+RUN mkdir -p /opt ${APP_ROOT} && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT} /etc/passwd
+
+ENV PATH=${APP_ROOT}/bin:$PATH HOME=${APP_ROOT}\
     LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 
 
@@ -48,16 +54,12 @@ RUN curl -sL https://github.com/jleach/openshift-components/blob/master/cicd/azu
     tar -zx -C / 
 
 # Fetch stock nodejs and install
-RUN mkdir -p /opt && \
-    pushd /opt && \
+RUN pushd /opt && \
     curl -sL https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz | tar -Jx && \
     rm -f node-${NODE_VERSION}-linux-x64.tar.xz
 
-# Create work folder
-RUN mkdir -p /opt/work
-
 # Update environment variables
-ENV PATH=$PATH:/opt/work:/opt/rh/rh-dotnet22/root/bin:/usr/local/git/bin:/opt/node-${NODE_VERSION}-linux-x64/bin
+ENV PATH=$PATH:/opt/rh/rh-dotnet22/root/bin:/usr/local/git/bin:/opt/node-${NODE_VERSION}-linux-x64/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ENV NODE_HOME=/opt/node-${NODE_VERSION}-linux-x64
 
@@ -68,7 +70,9 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
     node -v && \
     npm -v
 
-WORKDIR /opt/work
 
-#Set default user and working dir
+# Change default user as good practice
 USER 1001
+WORKDIR ${APP_ROOT} 
+
+ENTRYPOINT [ "uid_entrypoint" ]
