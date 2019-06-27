@@ -59,8 +59,8 @@ RUN pushd /opt && \
     rm -f node-${NODE_VERSION}-linux-x64.tar.xz
 
 RUN curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/base/scripts/entrypoint.sh \
-    -o /opt/entrypoint.sh && \
-    chmod +x /opt/entrypoint.sh
+    -o ${APP_ROOT}/entrypoint.sh && \
+    chmod +x ${APP_ROOT}/entrypoint.sh
 
 # Update environment variables
 ENV PATH=$PATH:/opt/rh/rh-dotnet22/root/bin:/usr/local/git/bin:/opt/node-${NODE_VERSION}-linux-x64/bin
@@ -79,4 +79,4 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
 USER 1001
 WORKDIR ${APP_ROOT} 
 
-ENTRYPOINT [ "/opt/entrypoint.sh" ]
+CMD ["bash", "-c",  "${APP_ROOT}/entrypoint.sh" ]
