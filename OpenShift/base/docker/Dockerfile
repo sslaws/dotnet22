@@ -53,8 +53,11 @@ RUN mkdir -p /opt && \
     curl -sL https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.xz | tar -Jx && \
     rm -f node-${NODE_VERSION}-linux-x64.tar.xz
 
+# Create work folder
+RUN mkdir -p /opt/work
+
 # Update environment variables
-ENV PATH=$PATH:/opt/rh/rh-dotnet22/root/bin:/usr/local/git/bin:/opt/node-${NODE_VERSION}-linux-x64/bin
+ENV PATH=$PATH:/opt/work:/opt/rh/rh-dotnet22/root/bin:/usr/local/git/bin:/opt/node-${NODE_VERSION}-linux-x64/bin
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ENV NODE_HOME=/opt/node-${NODE_VERSION}-linux-x64
 
@@ -65,9 +68,7 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
     node -v && \
     npm -v
 
-#Create a default App user
-RUN useradd -m app -u 1001
+WORKDIR /opt/work
 
 #Set default user and working dir
 USER 1001
-WORKDIR /home/app
