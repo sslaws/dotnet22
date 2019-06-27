@@ -83,6 +83,6 @@ fi
     --pool "${AZ_DEVOPS_POOL:-default}"\
     --replace & wait $!
 
-./run.sh & wait $!
+./run.sh --once & wait $!
 
 ./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
