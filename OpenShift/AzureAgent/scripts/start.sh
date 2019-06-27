@@ -85,4 +85,4 @@ fi
 
 ./run.sh --once & wait $!
 
-./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
+#./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
