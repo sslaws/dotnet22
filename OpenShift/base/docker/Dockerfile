@@ -19,7 +19,8 @@ LABEL summary="$SUMMARY" \
 ENV APP_ROOT=/opt/app
 RUN mkdir -p /opt ${APP_ROOT} && \
     chgrp -R 0 ${APP_ROOT} && \
-    chmod -R g=u ${APP_ROOT} /etc/passwd
+    chmod -R g=u ${APP_ROOT} /etc/passwd && \
+    chmod g+s ${APP_ROOT}
 
 ENV PATH=${APP_ROOT}/bin:$PATH HOME=${APP_ROOT}\
     LC_ALL=en_US.UTF-8 \
