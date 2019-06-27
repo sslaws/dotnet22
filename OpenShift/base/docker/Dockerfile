@@ -66,7 +66,7 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
     npm -v
 
 #Create a default App user
-RUN useradd -m app
+RUN useradd -m app -u 1001
 
 #Set default user and working dir
 USER app
