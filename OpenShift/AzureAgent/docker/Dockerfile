@@ -17,7 +17,7 @@ LABEL summary="$SUMMARY" \
 RUN curl -sL https://vstsagentpackage.azureedge.net/agent/${DEVOPS_AGENT_VERSION}/vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz | tar -zx && \
     rm -f vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz 
 
-RUN curl -sL https://raw.githubusercontent.com/sslaws/OpenShift/AzureAgent/scripts/start.sh \
+RUN curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh \
     -o start.sh && \
     chmod +x start.sh
 
