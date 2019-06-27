@@ -77,7 +77,9 @@ fi
 
 ./entrypoint.sh
 
-agent/config.sh --unattended \
+pushd ${APP_ROOT}/agent
+
+./config.sh --unattended \
     --agent "${AZ_DEVOPS_AGENT_NAME:-$HOSTNAME}" \
     --url "${AZ_DEVOPS_ORG_URL}" \
     --auth PAT \
@@ -85,6 +87,6 @@ agent/config.sh --unattended \
     --pool "${AZ_DEVOPS_POOL:-default}"\
     --replace & wait $!
 
-agent/run.sh --once & wait $!
+./run.sh --once & wait $!
 
-agent/config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
+./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
