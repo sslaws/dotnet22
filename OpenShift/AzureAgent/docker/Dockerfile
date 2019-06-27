@@ -26,6 +26,6 @@ RUN curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/
 #ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ENV AZ_DEVOPS_ORG_URL=set_me_to_the_org_url
 ENV AZ_DEVOPS_TOKEN=set_me_to_a_pat
-ENV AZ_DEVOPS_AGENT_POOL=set_me_to_an_agent_pool
+ENV AZ_DEVOPS_POOL=set_me_to_an_agent_pool
 
-CMD ["bash", "-c", "./start.sh", "-u", "$AZ_DEVOPS_ORG_URL", "-t", "$AZ_DEVOPS_TOKEN"]
+CMD ["bash", "-c", "./start.sh", "-u", "$AZ_DEVOPS_ORG_URL", "-t", "$AZ_DEVOPS_TOKEN", "-p", "$AZ_DEVOPS_POOL"]
