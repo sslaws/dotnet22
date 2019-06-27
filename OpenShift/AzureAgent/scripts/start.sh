@@ -75,7 +75,7 @@ if [ -z "${AZ_DEVOPS_ORG_URL}" ] || [ -z "${AZ_DEVOPS_TOKEN}" ]; then
   usage
 fi
 
-./config.sh --unattended \
+agent/config.sh --unattended \
     --agent "${AZ_DEVOPS_AGENT_NAME:-$HOSTNAME}" \
     --url "${AZ_DEVOPS_ORG_URL}" \
     --auth PAT \
@@ -83,6 +83,6 @@ fi
     --pool "${AZ_DEVOPS_POOL:-default}"\
     --replace & wait $!
 
-./run.sh --once & wait $!
+agent/run.sh --once & wait $!
 
-./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!
+agent/config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!

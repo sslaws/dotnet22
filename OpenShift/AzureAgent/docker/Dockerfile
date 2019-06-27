@@ -1,7 +1,7 @@
 #FROM "__FROM_IMAGE_STREAM_DEFINED_IN_TEMPLATE__"
-FROM docker-registry.pathfinder.gov.bc.ca/q6qfzk-tools/dotnet22-base:v2.2.0
+FROM docker-registry.pathfinder.gov.bc.ca/q6qfzk-tools/dotnet22-base:2.2.107
 
-ARG DEVOPS_AGENT_VERSION=2.153.2
+ENV DEVOPS_AGENT_VERSION=2.153.2
 ENV SUMMARY="Azure DevOps agent with .NET"  \
     DESCRIPTION="Azure DevOps agent with .NET v${DOTNET_VERSION}, nodejs v${NODE_VERSION}, Agent v${DEVOPS_AGENT_VERSION}"
 
@@ -14,8 +14,13 @@ LABEL summary="$SUMMARY" \
       release="1"
 
 # Fetch stock azure client and install
-RUN curl -sL https://vstsagentpackage.azureedge.net/agent/${DEVOPS_AGENT_VERSION}/vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz | tar -zx && \
-    rm -f vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz 
+# Fetch stock azure client and install
+RUN mkdir -p ${APP_ROOT}/agent && \
+    pushd ${APP_ROOT}/agent && \
+    curl -sL https://vstsagentpackage.azureedge.net/agent/${DEVOPS_AGENT_VERSION}/vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz | tar -zx && \
+    echo rm -f vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz && \
+    popd && \
+    echo find /opt/az -exec chmod 777 {} \;
 
 RUN curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh \
     -o start.sh && \
@@ -28,4 +33,4 @@ ENV AZ_DEVOPS_ORG_URL=set_me_to_the_org_url
 ENV AZ_DEVOPS_TOKEN=set_me_to_a_pat
 ENV AZ_DEVOPS_POOL=set_me_to_an_agent_pool
 
-CMD ["bash", "-c", "./start.sh", "-u", "$AZ_DEVOPS_ORG_URL", "-t", "$AZ_DEVOPS_TOKEN", "-p", "$AZ_DEVOPS_POOL"]
+CMD ["bash", "-c", "start.sh", "-u", "$AZ_DEVOPS_ORG_URL", "-t", "$AZ_DEVOPS_TOKEN", "-p", "$AZ_DEVOPS_POOL"]

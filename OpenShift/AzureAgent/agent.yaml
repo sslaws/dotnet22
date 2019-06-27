@@ -43,7 +43,7 @@ objects:
       dockerStrategy:
         from:
           kind: ImageStreamTag
-          name: 'dotnet22-base:v2.2.0'
+          name: 'dotnet22-base:2.2.107'
           namespace: q6qfzk-tools
       type: Docker
     successfulBuildsHistoryLimit: 2
