@@ -69,7 +69,5 @@ RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
 RUN useradd -m app -u 1001
 
 #Set default user and working dir
-USER app
+USER 1001
 WORKDIR /home/app
-
-#CMD ["bash", "-c", "/opt/az/start.sh", "-u", "$AZ_DEVOPS_ORG_URL", "-t", "$AZ_DEVOPS_TOKEN"]
