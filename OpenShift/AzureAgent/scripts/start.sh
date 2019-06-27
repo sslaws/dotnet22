@@ -76,7 +76,7 @@ if [ -z "${AZ_DEVOPS_ORG_URL}" ] || [ -z "${AZ_DEVOPS_TOKEN}" ]; then
 fi
 
 ./config.sh --unattended \
-    --agent "${AZ_DEVOPS_AGENT_NAME:-$(hostname)}" \
+    --agent "${AZ_DEVOPS_AGENT_NAME:-$HOSTNAME}" \
     --url "${AZ_DEVOPS_ORG_URL}" \
     --auth PAT \
     --token $AZ_DEVOPS_TOKEN \
