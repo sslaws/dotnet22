@@ -73,8 +73,8 @@ ENV NODE_HOME=/opt/node-${NODE_VERSION}-linux-x64
 RUN npm i -g npm@latest yarn@latest nsp@latest nodemon@latest && \
     rm -rf ~/.npm && \
     node -v && \
-    npm -v
-
+    npm -v && \
+    find ${APP_ROOT} -exec chmod 777 {}
 
 # Change default user as good practice
 USER 1001
