@@ -14,17 +14,13 @@ LABEL summary="$SUMMARY" \
       release="1"
 
 # Fetch stock azure client and install
-# Fetch stock azure client and install
 RUN mkdir -p ${APP_ROOT}/agent && \
     pushd ${APP_ROOT}/agent && \
     curl -sL https://vstsagentpackage.azureedge.net/agent/${DEVOPS_AGENT_VERSION}/vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz | tar -zx && \
     echo rm -f vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz && \
-    popd && \
-    find ${APP_ROOT} -exec chmod 777 {} \;
-
-RUN curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh \
-    -o start.sh && \
-    chmod +x start.sh
+    curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh -o start.sh && \
+    find ${APP_ROOT}/agent -exec chmod 777 {} \; && \
+    popd 
 
 # Update environment variables
 ENV PATH=$PATH:${APP_ROOT}/agent/bin
