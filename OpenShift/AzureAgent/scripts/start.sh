@@ -79,6 +79,7 @@ fi
 
 pushd ${APP_ROOT}/agent
 
+echo Configuring Agent
 ./config.sh --unattended \
     --agent "${AZ_DEVOPS_AGENT_NAME:-$HOSTNAME}" \
     --url "${AZ_DEVOPS_ORG_URL}" \
@@ -87,6 +88,8 @@ pushd ${APP_ROOT}/agent
     --pool "${AZ_DEVOPS_POOL:-default}"\
     --replace & wait $!
 
+echo Running Agent
 ./run.sh --once & wait $!
 
+echo Deregistering Agent
 ./config.sh remove --unattended --auth PAT --token $AZ_DEVOPS_TOKEN & wait $!

@@ -18,9 +18,10 @@ RUN mkdir -p ${APP_ROOT}/agent && \
     pushd ${APP_ROOT}/agent && \
     curl -sL https://vstsagentpackage.azureedge.net/agent/${DEVOPS_AGENT_VERSION}/vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz | tar -zx && \
     echo rm -f vsts-agent-rhel.6-x64-${DEVOPS_AGENT_VERSION}.tar.gz && \
-    curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh -o start.sh && \
     find ${APP_ROOT}/agent -exec chmod 777 {} \; && \
-    popd 
+    popd && \
+    curl -sL https://raw.githubusercontent.com/sslaws/dotnet22/master/OpenShift/AzureAgent/scripts/start.sh -o start.sh && \
+    chmod 777 start.sh
 
 # Update environment variables
 ENV PATH=$PATH:${APP_ROOT}/agent/bin
